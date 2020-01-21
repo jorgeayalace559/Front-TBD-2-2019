@@ -58,6 +58,7 @@
   
 
   <Momentaneo/>
+  <google-map/>
   </div>      
 </template>
 
@@ -66,11 +67,12 @@ import Momentaneo from '@/components/Momentaneo';
 import EmergenciasActuales from '../components/Emergency/EmergenciasActuales';
 import RegistroUsuario from '../components/Voluntary/RegistroUsuario';
 import RegistroEmergencia from '../components/Emergency/RegistroEmergencia';
+import GoogleMap from '@/components/GoogleMap';
 
 export default {
   name: 'home',
   components: {
-    Momentaneo, EmergenciasActuales, RegistroUsuario, RegistroEmergencia
+    Momentaneo, EmergenciasActuales, RegistroUsuario, RegistroEmergencia, GoogleMap
   }
 }
 </script>
