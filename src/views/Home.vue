@@ -57,9 +57,14 @@
     </v-container>
   
 
-  <Momentaneo/>
   <v-container>
-    <LeafletMap :voluntaries="voluntaries" v-bind:centerEmergency="centerEmergency"/>
+    <v-text-field v-model="radio" placeholder="Ingrese el radio en km"></v-text-field>
+    <v-btn @click="getVolunteers" class="text-center">
+      Obtener voluntarios
+    </v-btn>
+  </v-container>
+  <v-container v-if="validador">
+    <LeafletMap :voluntaries="voluntaries" v-bind:Emergency="Emergency" v-bind:radio="radio" v-bind:showRadio="showRadio"/>
   </v-container>
   
   </div>      
@@ -70,23 +75,59 @@ import Momentaneo from '@/components/Momentaneo';
 import EmergenciasActuales from '../components/Emergency/EmergenciasActuales';
 import RegistroUsuario from '../components/Voluntary/RegistroUsuario';
 import RegistroEmergencia from '../components/Emergency/RegistroEmergencia';
-import GoogleMap from '../components/Maps/GoogleMap';
 import LeafletMap from '../components/Maps/LeafletMap';
+import http from "@/http-common";
+
 
 export default {
   name: 'home',
   data: function(){
     return {
-      voluntaries: [{nombre: "roberto", latitud: -33.451509,longitud: -70.680390},
-                    {nombre: "javier",latitud: -33.453630,longitud: -70.689091}],
-      centerEmergency: {
-        latitud:-33.452153,
-        longitud:-70.682986
-      }
+      voluntaries: null,
+      radio: null,
+      idEmergency: 3,
+      validador: false,
+      Emergency: {
+                    "type": "Incendio",
+                    "description": "incendio en la florida",
+                    "capacity": 45,
+                    "status": 1,
+                    "latitude": "-35.452331",
+                    "longitude": "-70.682908",
+                    "idEmergency": 3
+                },
+      showRadio : false
     }
   },
   components: {
-    Momentaneo, EmergenciasActuales, RegistroUsuario, RegistroEmergencia, GoogleMap, LeafletMap
+    Momentaneo, EmergenciasActuales, RegistroUsuario, RegistroEmergencia, LeafletMap
+  },
+  methods: {
+    getUbicationEmergency(){
+      http
+      .get("/emergencies/"+this.idEmergency)
+      .then(response => {
+            this.Emergency = response.data;
+            console.log(response.data);
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    },
+    getVolunteers(){
+      this.getUbicationEmergency();
+      http
+        .get("/volunteers/voluntariosDisponibles/"+this.radio+"/"+this.idEmergency)
+        .then(response => {
+            this.voluntaries = response.data;
+            console.log(response.data);
+            this.showRadio = true;
+            this.validador = true;
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    }
   }
 }
 </script>

@@ -10,8 +10,7 @@
                     :key="i"
                 >
                     <router-link 
-                        v-on="on"
-                    :to="{
+                        :to="{
                         name: 'emergency-details',
                         params: { emergency: emergency, id: emergency.idEmergency }
                         }">
@@ -19,15 +18,10 @@
                     </router-link>
                 </v-list-item>
             </v-list-item-group>
-            <v-dialog
-                v-model="dialog"
-                width="800"
-                
-            >
+
                 <!---------------------CONTENIDO DE DIALOG ---------------------------->
                     <router-view @refreshData="refreshList" ></router-view>
                 <!---------------------FIN CONTENIDO DE DIALOG ---------------------------->
-            </v-dialog>
             
         </v-card> 
     </div>

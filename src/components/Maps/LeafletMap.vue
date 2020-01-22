@@ -5,29 +5,30 @@
             <l-marker 
                 :key="index"
                 v-for="(voluntary,index) in voluntaries"
-                :lat-lng="latLng(voluntary.latitud,voluntary.longitud)"
+                :lat-lng="latLng(voluntary.latitude,voluntary.longitude)"
                 >
                 <l-popup>
-                    {{voluntary.nombre}}
+                    <p>{{voluntary.name}} {{voluntary.lastname}}</p>  
                 </l-popup>
             </l-marker>
-            <l-marker :lat-lng="latLng(this.centerEmergency.latitud, this.centerEmergency.longitud)">
+            <l-marker :lat-lng="latLng(this.Emergency.latitude, this.Emergency.longitude)">
                 <l-icon
                     :iconSize = "iconSize"
                     :icon-url = "icon"
                     >
                 </l-icon>
+                <l-popup>
+                    {{Emergency.description}}
+                </l-popup>
             </l-marker>
             <l-circle
-            v-if="this.cir"
-                :lat-lng="circle.center"
-                :radius="circle.radius"
+                v-if="this.showRadio"
+                :lat-lng="latLng(this.Emergency.latitude,this.Emergency.longitude)"
+                :radius="this.circle.radius"
                 color="cicle.color"
             >
-                <l-popup content="Circle" />
             </l-circle>
         </l-map>
-        <h1>{{center}}</h1>
     </div>
     <!-- /.row map -->
 </template>
@@ -40,7 +41,9 @@ export default {
     name: 'MyAwesomeMap',
     props: {
         voluntaries: Array,
-        centerEmergency: Object
+        Emergency: Object,
+        radio: String,
+        showRadio: Boolean
     },
     components: {
         LMap,
@@ -52,14 +55,15 @@ export default {
     },
     data() {
         return {
-            zoom:13,
-            center: L.latLng(this.centerEmergency.latitud, this.centerEmergency.longitud),
+            zoom:6,
+            center: L.latLng(this.Emergency.latitude, this.Emergency.longitude),
             url:'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
             icon: iconEmergency,
             iconSize: [32,32],
-            circle: { center: [this.centerEmergency.latitud, this.centerEmergency.longitud], radius: 5000, color: '#FF00FF' },
-            cir: true
+            circle: {  radius: parseInt(this.radio)*1000, color: '#FF00FF' },
+            cir: true,
+            centerPrueba: {latitud:-35.452331,longitud:-70.682908}
         }
     },
     methods: {
