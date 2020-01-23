@@ -20,6 +20,7 @@
         </template>
         <!---------------------CONTENIDO DE DIALOG ---------------------------->
             <RegistroUsuario/>
+            <Tabla/>
         <!---------------------FIN CONTENIDO DE DIALOG ---------------------------->
       </v-dialog>
     </div>
@@ -76,7 +77,11 @@ import EmergenciasActuales from '../components/Emergency/EmergenciasActuales';
 import RegistroUsuario from '../components/Voluntary/RegistroUsuario';
 import RegistroEmergencia from '../components/Emergency/RegistroEmergencia';
 import LeafletMap from '../components/Maps/LeafletMap';
+import Tabla from '@/components/Tabla';
+
 import http from "@/http-common";
+
+
 
 
 export default {
@@ -100,7 +105,7 @@ export default {
     }
   },
   components: {
-    Momentaneo, EmergenciasActuales, RegistroUsuario, RegistroEmergencia, LeafletMap
+    Momentaneo, EmergenciasActuales, RegistroUsuario, RegistroEmergencia, LeafletMap, Tabla,
   },
   methods: {
     getUbicationEmergency(){
