@@ -43,9 +43,9 @@
       return {
         items: [
           { title: 'Home', icon: 'dashboard', route: "/" },
-          { title: 'Registrar emergencia', icon: 'question_answer', route: "/register-emergency" },
-          { title: 'Consultas', icon: 'explorer', route: "/register-emergency" },
-          { title: 'Emergencias', icon: 'notifications_none', route: "/emergencies" }
+          { title: 'Registrar emergencia', icon: 'input', route: "/register-emergency" },
+          { title: 'Registrar voluntario', icon: 'account_box', route: "/register-emergency" },
+          { title: 'Emergencias', icon: 'explorer', route: "/emergencies" }
         ],
       }
     },
