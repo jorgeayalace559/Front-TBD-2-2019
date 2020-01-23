@@ -9,14 +9,22 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
-    children: [
-      {
-        path: '/emergencies/:id',
-        name: 'emergency-details',
-        component: () => import('../components/Emergency/EmergenciaUnica.vue'),
-        props: true
-      }
-    ]
+  },
+  {
+    path: '/register-emergency',
+    name: 'register-emergency',
+    component: () => import('../components/Emergency/Register.vue')
+  },
+  {
+    path: '/emergencies',
+    name: 'emergencies',
+    component: () => import('../components/Emergency/Emergencies.vue')
+  },
+  {
+    path: '/emergencies/:id/queryGeolocaliza',
+    name: 'emergency-details',
+    component: () => import('../components/QueryGeo.vue'),
+    props: true
   }
 ]
 

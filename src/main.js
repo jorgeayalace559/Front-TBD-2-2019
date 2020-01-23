@@ -11,6 +11,7 @@ import '@babel/polyfill'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
+
 // this part resolve an issue where the markers would not appear
 delete Icon.Default.prototype._getIconUrl;
 

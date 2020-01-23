@@ -1,5 +1,6 @@
 <template>
     <div class="row map">
+        <v-container>
         <l-map :zoom="zoom" :center="center">
             <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
             <l-marker 
@@ -23,18 +24,19 @@
             </l-marker>
             <l-circle
                 v-if="this.showRadio"
-                :lat-lng="latLng(this.Emergency.latitude,this.Emergency.longitude)"
-                :radius="this.circle.radius"
+                :lat-lng="circle.center"
+                :radius="radio*1000"
                 color="cicle.color"
             >
             </l-circle>
         </l-map>
+        </v-container>
     </div>
     <!-- /.row map -->
 </template>
 
 <script>
-import {LMap, LTileLayer, LMarker, LIcon, LPopup, LCircle } from 'vue2-leaflet';
+import {LMap, LTileLayer, LMarker, LIcon, LPopup, LCircle, LCircleMarker } from 'vue2-leaflet';
 import iconEmergency from '@/assets/emergencia-icon.png';
 
 export default {
@@ -42,7 +44,7 @@ export default {
     props: {
         voluntaries: Array,
         Emergency: Object,
-        radio: String,
+        radio: Int32Array,
         showRadio: Boolean
     },
     components: {
@@ -51,7 +53,8 @@ export default {
         LMarker,
         LIcon,
         LPopup,
-        LCircle
+        LCircle,
+        LCircleMarker
     },
     data() {
         return {
@@ -61,9 +64,7 @@ export default {
             attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
             icon: iconEmergency,
             iconSize: [32,32],
-            circle: {  radius: parseInt(this.radio)*1000, color: '#FF00FF' },
-            cir: true,
-            centerPrueba: {latitud:-35.452331,longitud:-70.682908}
+            circle: { center: [this.Emergency.latitude, this.Emergency.longitude], radius: this.radio, color: '#FF00FF' },
         }
     },
     methods: {
@@ -76,6 +77,6 @@ export default {
 
 <style scoped>
     .map {
-        height: 95vh;
+        height: 65vh;
     }
 </style>
